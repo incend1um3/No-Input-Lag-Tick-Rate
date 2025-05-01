@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "noinputlagtickrate",
+	"version": "${version}",
+	"name": "No Input Lag Tick Rate",
+	"description": "Moves input handling to the render loop to avoid input lag caused by low tick rates.",
+	"authors": [
+		"incend1um"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/project/no-input-lag-tick-rate",
+		"sources": "https://github.com/incend1um3/No-Input-Lag-Tick-Rate",
+		"issues": "https://github.com/incend1um3/No-Input-Lag-Tick-Rate/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/noinputlagtickrate/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"me.incend1um.noinputlagtickrate.NoInputLagTickRateClient"
+		]
+	},
+	"mixins": [
+		{
+			"config": "noinputlagtickrate.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

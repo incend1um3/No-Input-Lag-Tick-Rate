@@ -1,0 +1,16 @@
+{
+	"required": true,
+	"package": "me.incend1um.noinputlagtickrate.mixin.client",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"MinecraftMixin",
+		"MultiPlayerGameModeMixin",
+		"access.MinecraftAccess"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"mixinextras": {
+		"minVersion": "0.5.0-rc.2"
+	}
+}
