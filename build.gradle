@@ -21,7 +21,7 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"nolagtickrate" {
+		"noinputlagtickrate" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}

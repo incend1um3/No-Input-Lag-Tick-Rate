@@ -25,7 +25,7 @@ public class MinecraftMixin {
 
 	@Definition(id = "screen", field = "Lnet/minecraft/client/Minecraft;screen:Lnet/minecraft/client/gui/screens/Screen;")
 	@Expression("this.screen != null")
-	@ModifyExpressionValue(method = "tick", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 0))
+	@ModifyExpressionValue(method = "tick", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 1))
 	boolean doNotSetMissTime(boolean original) {
 		return false;
 	}
