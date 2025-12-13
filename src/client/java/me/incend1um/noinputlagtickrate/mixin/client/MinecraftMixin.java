@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class MinecraftMixin {
 	@Definition(id = "overlay", field = "Lnet/minecraft/client/Minecraft;overlay:Lnet/minecraft/client/gui/screens/Overlay;")
 	@Expression("this.overlay == null")
-	@ModifyExpressionValue(method = "tick", at = @At("MIXINEXTRAS:EXPRESSION"))
+	@ModifyExpressionValue(method = "tick", at = @At(value = "MIXINEXTRAS:EXPRESSION", ordinal = 1))
 	boolean preventInputHandling(boolean original) {
 		return false;
 	}

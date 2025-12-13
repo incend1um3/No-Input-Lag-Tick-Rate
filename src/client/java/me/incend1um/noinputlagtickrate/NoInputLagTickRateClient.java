@@ -2,7 +2,7 @@ package me.incend1um.noinputlagtickrate;
 
 import me.incend1um.noinputlagtickrate.mixin.client.access.MinecraftAccess;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
 import net.minecraft.Util;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -12,7 +12,7 @@ public class NoInputLagTickRateClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		WorldRenderEvents.START.register((worldRenderContext) -> {
+		WorldRenderEvents.START_MAIN.register((worldRenderContext) -> {
 			Minecraft mc = Minecraft.getInstance();
 
 			if (mc.screen != null) {
