@@ -2,17 +2,17 @@ package me.incend1um.noinputlagtickrate;
 
 import me.incend1um.noinputlagtickrate.mixin.client.access.MinecraftAccess;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.world.WorldRenderEvents;
-import net.minecraft.Util;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.Util;
 
 public class NoInputLagTickRateClient implements ClientModInitializer {
 	public static DeltaTracker.Timer inputDeltaTracker = new DeltaTracker.Timer(20.0f, 0, NoInputLagTickRateClient::tickTargetMspt);
 
 	@Override
 	public void onInitializeClient() {
-		WorldRenderEvents.START_MAIN.register((worldRenderContext) -> {
+		LevelRenderEvents.START_MAIN.register((worldRenderContext) -> {
 			Minecraft mc = Minecraft.getInstance();
 
 			if (mc.screen != null) {
@@ -20,7 +20,7 @@ public class NoInputLagTickRateClient implements ClientModInitializer {
 			}
 
 			if (mc.getOverlay() == null && mc.screen == null) {
-				int ticksDue = Math.min(10, inputDeltaTracker.advanceTime(Util.getMillis(), true));
+				int ticksDue = Math.min(10, inputDeltaTracker.advanceGameTime(Util.getMillis()));
 				for (int i = 0; i < ticksDue; i++) {
 					MinecraftAccess access = (MinecraftAccess) mc;
 
