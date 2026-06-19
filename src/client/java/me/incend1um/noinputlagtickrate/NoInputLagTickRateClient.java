@@ -1,7 +1,9 @@
 package me.incend1um.noinputlagtickrate;
 
 import me.incend1um.noinputlagtickrate.mixin.client.access.MinecraftAccess;
+import me.incend1um.noinputlagtickrate.network.NoInputLagTickRateNetwork;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.Util;
 import net.minecraft.client.DeltaTracker;
@@ -10,9 +12,28 @@ import net.minecraft.client.Minecraft;
 public class NoInputLagTickRateClient implements ClientModInitializer {
 	public static DeltaTracker.Timer inputDeltaTracker = new DeltaTracker.Timer(20.0f, 0, NoInputLagTickRateClient::tickTargetMspt);
 
+	private static volatile boolean optedOut = false;
+
+	public static boolean isOptedOut() {
+		return optedOut;
+	}
+
+	public static void setOptedOut(boolean value) {
+		optedOut = value;
+	}
+
 	@Override
 	public void onInitializeClient() {
+		optedOut = false;
+
+		new NoInputLagTickRateNetwork().register();
+
+		ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> optedOut = false);
+		ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> optedOut = false);
+
 		WorldRenderEvents.START.register((worldRenderContext) -> {
+			if (optedOut) return;
+
 			Minecraft mc = Minecraft.getInstance();
 
 			if (mc.screen != null) {
